@@ -42,3 +42,16 @@ router.put('/:id', async (req, res)=>{
         res.status(400).json({error:err})
     }
   })
+
+  //delete route
+router.delete('/:id', async (req, res)=> {
+    try {
+      const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
+      const deletedReviews = await MovieReview.deleteMany({ title: req.params.id });
+      res.redirect(200,'/movie')
+  
+    }catch (err) {
+      res.status(400).json({error: err})
+    }
+  })
+  module.exports = router
