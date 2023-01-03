@@ -22,12 +22,9 @@ router.get('/', async (req,res)=> {
 
 // Get specific movie - http://localhost:4000/movie/:id - GET
 router.get('/:id', async (req,res)=> {
-    
     try {
-
-        const foundProduct = await Product.findById(req.params.id)
-        res.status(200).json(foundProduct)
-
+        const foundMovie = await Movie.findById(req.params.id)
+        res.status(200).json(foundMovie)
     }catch (err) {
         res.status(400).json({error: err})
     }
