@@ -12,7 +12,7 @@ router.use(express.urlencoded({ extended: true }));
 //ROUTES - http://localhost:4000/reviews
 
 //GET All reviews route - http://localhost:4000/reviews
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
     try {
         const allReviews = await MovieReview.find({}).populate("movie")
         res.status(200).json(allReviews)
@@ -21,9 +21,8 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-
 //GET show route for reviews - display details - http://localhost:4000/reviews/
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req, res) => {
     try {
         const foundMovie = await Movie.findById(req.params.id);
         const allReviews = await MovieReview.find({ title: req.params.id });
@@ -33,3 +32,13 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+//update review
+router.put('/:id', async (req, res)=>{
+    try {
+        const movieReview = await MovieReview.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        console.log(movieReview)
+        res.status(200).json(movieReview)
+    } catch(err) {
+        res.status(400).json({error:err})
+    }
+  })
