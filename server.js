@@ -6,7 +6,7 @@ const app = express();
 const cors = require('cors')
 const morgan = require('morgan')
 
-const movieController = require('./controllers/product-controller')
+const movieController = require('./controllers/movie-controller')
 const reviewController = require('./controllers/review-controller')
 
 
