@@ -5,7 +5,7 @@ const MovieReviewSchema = new mongoose.Schema({
    
     rating: {
         type: Number,
-        required: [true],
+        required: true,
         minlegnth: 1,
         maxlength: 100
     },
