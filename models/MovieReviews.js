@@ -21,5 +21,5 @@ const MovieReviewSchema = new mongoose.Schema({
     },
 }, {timestamps: true})
 
-const ProductReview = mongoose.model("Review", ProductReviewSchema)
-module.exports = ProductReview
+const MovieReview = mongoose.model("Review", MovieReviewSchema)
+module.exports = MovieReview
