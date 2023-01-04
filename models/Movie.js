@@ -6,6 +6,18 @@ const MovieSchema = new mongoose.Schema({
         type: String,
         required: [true, "Title required"]
     },
+    agerating: {
+        type: String,
+        required: [true, "age rating required"]
+    },
+    hlength: {
+        type: String,
+        required: [true, "hours required"]
+    },
+    mlength: {
+        type: String,
+        required: [true, "minutes required"]
+    },
     image: {
         type: String,
         required: [true, "Image required"]
@@ -23,7 +35,7 @@ const MovieSchema = new mongoose.Schema({
         required: [true, "Director name required"]
     },
     cast: {
-        type: String,
+        type: Array,
         required: [true, "Title required"]
     },
 }, { timestamps: true });

@@ -32,26 +32,36 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-//update review
-router.put('/:id', async (req, res)=>{
+//create route
+router.post('/', async (req, res) => {
     try {
-        const movieReview = await MovieReview.findByIdAndUpdate(req.params.id, req.body, {new:true})
+        const newReview = await MovieReview.create(req.body)
+        res.status(200).json(newReview)
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+})
+
+//update review
+router.put('/:id', async (req, res) => {
+    try {
+        const movieReview = await MovieReview.findByIdAndUpdate(req.params.id, req.body, { new: true })
         console.log(movieReview)
         res.status(200).json(movieReview)
-    } catch(err) {
-        res.status(400).json({error:err})
+    } catch (err) {
+        res.status(400).json({ error: err })
     }
-  })
+})
 
-  //delete route
-router.delete('/:id', async (req, res)=> {
+//delete route
+router.delete('/:id', async (req, res) => {
     try {
-      const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
-      const deletedReviews = await MovieReview.deleteMany({ title: req.params.id });
-      res.redirect(200,'/movie')
-  
-    }catch (err) {
-      res.status(400).json({error: err})
+        const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
+        const deletedReviews = await MovieReview.deleteMany({ title: req.params.id });
+        res.redirect(200, '/movie')
+
+    } catch (err) {
+        res.status(400).json({ error: err })
     }
-  })
-  module.exports = router
+})
+module.exports = router
