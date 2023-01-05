@@ -5,13 +5,13 @@ const MovieReviewSchema = new mongoose.Schema({
    
     rating: {
         type: Number,
-        required: true,
+        required: false,
         minlegnth: 1,
         maxlength: 100
     },
     comment: {
         type: String,
-        required: true,
+        required: false,
         max: 250
     },
     //relationship to movie
