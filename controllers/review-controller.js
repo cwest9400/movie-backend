@@ -31,10 +31,27 @@ router.get('/:id', async (req, res) => {
         res.status(400).json({ error: err })
     }
 })
-
+router.get('/:id', async (req, res) => {
+    try {
+        const foundMovie = await Movie.findById(req.params.id);
+        const allReviews = await MovieReview.find({ title: req.params.id });
+        res.status(200).json(allReviews)
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+})
+router.get('/edit/:id', async (req, res) => {
+    try {
+        const oneReview = await MovieReview.findById(req.params.id);
+        const allReviews = await MovieReview.find({ title: req.params.id });
+        res.status(200).json( oneReview)
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+})
 
 //create route
-router.post('/', async (req, res) => {
+router.post('/:id', async (req, res) => {
     try {
         const newReview = await MovieReview.create(req.body)
         res.status(200).json(newReview)
@@ -44,7 +61,7 @@ router.post('/', async (req, res) => {
 })
 
 //update review
-router.put('/:id', async (req, res) => {
+router.put('/edit/:id', async (req, res) => {
     try {
         const movieReview = await MovieReview.findByIdAndUpdate(req.params.id, req.body, { new: true })
         console.log(movieReview)
@@ -55,6 +72,17 @@ router.put('/:id', async (req, res) => {
 })
 
 //delete route
+router.delete('/edit/:id', async (req, res) => {
+    try {
+        const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
+        const deletedReviews = await MovieReview.deleteMany({ title: req.params.id });
+        res.redirect(200, '/review')
+
+    } catch (err) {
+        res.status(400).json({ error: err })
+    }
+})
+
 router.delete('/:id', async (req, res) => {
     try {
         const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
