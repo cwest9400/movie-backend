@@ -19,6 +19,14 @@ const MovieReviewSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Movie",
     },
+
+    //Triet's stuff
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      }
+  
 }, {timestamps: true})
 
 const MovieReview = mongoose.model("Review", MovieReviewSchema)
