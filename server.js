@@ -8,6 +8,7 @@ const morgan = require('morgan')
 
 const movieController = require('./controllers/movie-controller')
 const reviewController = require('./controllers/review-controller')
+const authController = require('./controllers/auth-controller')//Triet's stuff:
 
 
 // initialize .env variables
@@ -23,6 +24,7 @@ app.use(morgan('dev'))
 
 app.use('/movie', movieController)
 app.use('/review', reviewController)
+app.use('/auth', authController)//Triet's stuff
 app.get('/', (req, res)=>res.redirect('/movie'))
 
 app.listen(PORT, ()=> {
