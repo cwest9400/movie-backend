@@ -10,22 +10,8 @@ const { handleValidateOwnership, requireToken } = require("../middleware/auth");
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-//ROUTES - http://localhost:4000/reviews
+//GET All reviews route - 
 
-//GET All reviews route - http://localhost:4000/reviews
-
-// ***** Chris's stuff
-// router.get('/', async (req, res) => {
-//     try {
-//         const allReviews = await MovieReview.find({}).populate("movie")
-//         res.status(200).json(allReviews)
-//     } catch (err) {
-//         res.status(400).json({ error: err })
-//     }
-// });
-
-
-// $$$$$$ Triet's stuff
 router.get('/', async (req, res) => {
     try {
         const allReviews = await MovieReview.find({}).populate('owner', 'username -_id').exec()
@@ -35,10 +21,9 @@ router.get('/', async (req, res) => {
     }
 });
 
-//GET show route for reviews - display details - http://localhost:4000/reviews/
+//GET show route for reviews - display details - 
     router.get('/:id', async (req, res) => {
         try {
-            // const foundMovie = await Movie.findById(req.params.id).populate("owner").exec()//Triet's stuff since "".populate"
             const foundMovie = await Movie.findById(req.params.id)//Joshua
             console.log(foundMovie)
             const allReviews = await MovieReview.find({ title: req.params.id });
@@ -70,11 +55,9 @@ router.get('/edit/:id', async (req, res) => {
 //create route
 router.post('/:id', requireToken, async (req, res) => {//Triet added requireToken
     try {
-        const owner = req.user._id// Triet's stuff
-        console.log(req.user)//Triet stuff
-        req.body.owner = owner// Triet's stuff
-        // req.body.title = req.params._id
-        // console.log(req.body)
+        const owner = req.user._id
+        console.log(req.user)
+        req.body.owner = owner
         const newReview = await MovieReview.create(req.body)
         res.status(200).json(newReview)
     } catch (err) {
@@ -83,9 +66,9 @@ router.post('/:id', requireToken, async (req, res) => {//Triet added requireToke
 })
 
 //update review
-router.put('/edit/:id', requireToken,async (req, res) => {//Triet added requireToken
+router.put('/edit/:id', requireToken,async (req, res) => {
     try {
-        handleValidateOwnership(req, await MovieReview.findById(req.params.id))//Triet's stuff
+        handleValidateOwnership(req, await MovieReview.findById(req.params.id))
         const movieReview = await MovieReview.findByIdAndUpdate(req.params.id, req.body, { new: true })
         console.log(movieReview)
         res.status(200).json(movieReview)
@@ -95,9 +78,9 @@ router.put('/edit/:id', requireToken,async (req, res) => {//Triet added requireT
 })
 
 //delete route
-router.delete('/edit/:id', requireToken, async (req, res) => {//Triet added require Token
+router.delete('/edit/:id', requireToken, async (req, res) => {
     try {
-        handleValidateOwnership(req, await MovieReview.findById(req.params.id))//Triet's stuff
+        handleValidateOwnership(req, await MovieReview.findById(req.params.id))
         const deletedReview = await MovieReview.findByIdAndDelete(req.params.id);
         const deletedReviews = await MovieReview.deleteMany({ title: req.params.id });
         res.redirect(200, '/review')

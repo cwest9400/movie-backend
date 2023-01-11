@@ -20,7 +20,7 @@ const MovieReviewSchema = new mongoose.Schema({
         ref: "Movie",
     },
 
-    //Triet's stuff
+    //auth
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

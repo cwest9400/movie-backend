@@ -35,7 +35,6 @@ router.post("/register", async (req, res, next) => {
     }
 });
 
-
 // SIGN IN
 // POST /auth/login
 router.post("/login", async (req, res, next) => {
@@ -52,9 +51,5 @@ router.post("/login", async (req, res, next) => {
         res.status(401).json({ error: err.message });
     }
 });
-
-
-
-
 
 module.exports = router

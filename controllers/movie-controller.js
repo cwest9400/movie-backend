@@ -8,9 +8,7 @@ const { Movie } = require('../models')
 router.use(express.json())
 console.log(Movie)
 
-//ROUTES - http://localhost:4000/movie
-
-//All movies route - http://localhost:4000/movie
+//All movies route - /movie
 router.get('/', async (req,res)=> {
     try {
         const allMovies = await Movie.find({})
@@ -20,7 +18,7 @@ router.get('/', async (req,res)=> {
     }
 })
 
-// Get specific movie - http://localhost:4000/movie/:id - GET
+// Get specific movie - /movie/:id - GET
 router.get('/:id', async (req,res)=> {
     try {
         const foundMovie = await Movie.findById(req.params.id)
@@ -30,7 +28,7 @@ router.get('/:id', async (req,res)=> {
     }
 })
 
-//create movie route: http://localhost:4000/movie
+//create movie route: /movie
 router.post('/', async (req, res, next)=> {
     try {
         const createdMovie = await Movie.create(req.body)
@@ -42,7 +40,7 @@ router.post('/', async (req, res, next)=> {
     }
 })
 
-//update Movie route: http://localhost:4000/movie/:id
+//update Movie route: /movie/:id
 router.put('/:id', async (req, res, next)=>{
     try {
         const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {new: true})
@@ -54,7 +52,7 @@ router.put('/:id', async (req, res, next)=>{
     }
 })
 
-//delete product: http://localhost:4000/movie/:id
+//delete product: /movie/:id
 router.delete('/:id', async (req,res,next)=> {
     try {
         const deletedMovie = await Movie.findByIdAndDelete(req.params.id)
